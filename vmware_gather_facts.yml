@@ -19,9 +19,11 @@
       - set_fact:
            vm_ip_address: "{{ esxi_vm_guest_facts.instance.ipv4 }}"
   
-- name:  Gather OS Facts from VM
-  hosts: '{{ esxi_vm_guest_facts.instance.ipv4 }}'
-  gather_facts: true
+      - name:  Gather OS Facts from VM
+        setup:
+        delegate_to: '{{ esxi_vm_guest_facts.instance.ipv4 }}'
+
+
 
 
      
