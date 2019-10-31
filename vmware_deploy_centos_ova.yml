@@ -22,7 +22,7 @@
           password: '{{ esxi_password }}'
           datastore: '{{ esxi_datastore }}'
           name: '{{ esxi_new_vm_name }}'
-          networks: "{{ esxi_vmnetwork}}'{{ esxi_vm_provision_network }}"
+          networks: LAB:LAB
           validate_certs: no
           power_on: yes
           disk_provisioning: thin
