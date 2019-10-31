@@ -10,6 +10,7 @@
           url: '{{ esxi_ova_path }}'
           dest: ./'{{ local_ova_path }}'
           mode: '0440'
+       delegate_to: localhost
 
      - name: Deploy OVA to ESXi 
        vmware_deploy_ovf:
