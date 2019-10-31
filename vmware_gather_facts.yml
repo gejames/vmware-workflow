@@ -27,7 +27,7 @@
         yum:
             name: '*'
             state: latest
-
+        delegate_to: '{{ esxi_vm_guest_facts.instance.ipv4 }}'
 
 
 
