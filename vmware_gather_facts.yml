@@ -4,7 +4,7 @@
   gather_facts: false
 
   roles:
-    - wmware_gather_facts
+    - vmware_gather_facts
 
    
 
