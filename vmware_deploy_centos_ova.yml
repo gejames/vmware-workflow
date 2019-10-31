@@ -11,7 +11,7 @@
           dest: ./'{{ local_ova_path }}'
           mode: '0440'
           validate_certs: false
-          url_username: '{{ esxi_hostname }}'
+          url_username: '{{ esxi_username }}'
           url_password: '{{ esxi_password }}'
        delegate_to: localhost
 
@@ -45,6 +45,7 @@
        file:
          path: /tmp/'{{ local_ova_path }}'
          state: absent
+       delegate_to: localhost
 
 
 
