@@ -1,0 +1,24 @@
+---
+- name: VMWare Gather Facts
+  hosts: all
+  gather_facts: false
+
+  tasks:
+
+      - name: Gather facts from standalone ESXi server 
+        vmware_guest_facts:
+          hostname: '{{ esxi_hostname }}'
+          username: '{{ esxi_username }}'
+          password: '{{ esxi_password }}'
+          datacenter: ha-datacenter
+          validate_certs: no
+          name: '{{ esxi_new_vm_name }}'
+        delegate_to: localhost
+        register: esxi_vm_guest_facts
+
+  
+
+     
+      
+
+
