@@ -5,7 +5,7 @@
 
   tasks:
 
-      - name: Gather facts from standalone ESXi server 
+      - name: Gather VM facts from ESXI Guest VM
         vmware_guest_facts:
           hostname: '{{ esxi_hostname }}'
           username: '{{ esxi_username }}'
@@ -15,8 +15,14 @@
           name: '{{ esxi_new_vm_name }}'
         delegate_to: localhost
         register: esxi_vm_guest_facts
-
+         
+      - set_fact:
+           vm_ip_address: "{{ esxi_vm_guest_facts.instance.ipv4 }}"
   
+- name:  Gather OS Facts from VM
+  hosts: '{{ esxi_vm_guest_facts.instance.ipv4 }}'
+  gather_facts: true
+
 
      
       
