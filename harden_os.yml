@@ -3,12 +3,5 @@
   hosts: all
   gather_facts: false
 
-- roles: 
-    - vmware_deploy_ova
-
-
-
-     
-      
-
-
+- roles:
+    - dev-sec.os-hardening
