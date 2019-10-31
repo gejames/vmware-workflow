@@ -22,13 +22,13 @@
           password: '{{ esxi_password }}'
           datastore: '{{ esxi_datastore }}'
           name: '{{ esxi_new_vm_name }}'
-          networks: LAB:LAB
+          networks: "{u'LAB':u'{{ esxi_network_label }}'}"
           validate_certs: no
           power_on: yes
           disk_provisioning: thin
           ovf: ./'{{ local_ova_path }}'
        delegate_to: localhost
-
+       ignore_errors: yes
 
      - name: Gather facts from standalone ESXi server having datacenter as 'ha-datacenter'
        vmware_guest_facts:
