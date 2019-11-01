@@ -5,5 +5,5 @@
   hosts: '{{ vm_ip_address }}'
   gather_facts: false
 
-- roles:
+  roles:
     - dev-sec.os-hardening
