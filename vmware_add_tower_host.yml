@@ -1,6 +1,6 @@
 ---
 - name: Add tower host
-  hosts: localhost
+  hosts: local
   gather_facts: false
 
 - roles:
