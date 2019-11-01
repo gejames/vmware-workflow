@@ -1,5 +1,5 @@
 ---
-- name: VMWare Deploy CentOS OVA
+- name: OS Hardening
   hosts: all
   gather_facts: false
 

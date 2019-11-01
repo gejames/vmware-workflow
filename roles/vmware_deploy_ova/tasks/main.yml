@@ -1,35 +1,34 @@
 ---
+- name: Download OVA from ESXi Datastore
+  get_url: 
+    url: '{{ esxi_ova_path }}'
+    dest: ./'{{ local_ova_path }}'
+    mode: '0440'
+    validate_certs: false
+    url_username: '{{ esxi_username }}'
+    url_password: '{{ esxi_password }}'
+  delegate_to: localhost
 
-  - name: Download OVA from ESXi Datastore
-    get_url: 
-      url: '{{ esxi_ova_path }}'
-      dest: ./'{{ local_ova_path }}'
-      mode: '0440'
-      validate_certs: false
-      url_username: '{{ esxi_username }}'
-      url_password: '{{ esxi_password }}'
-    delegate_to: localhost
+- name: Deploy OVA to ESXi 
+  vmware_deploy_ovf:
+    hostname: '{{ esxi_hostname }}'
+    username: '{{ esxi_username }}'
+    password: '{{ esxi_password }}'
+    datastore: '{{ esxi_datastore }}'
+    name: '{{ esxi_new_vm_name }}'
+    networks: "{u'LAB':u'{{ esxi_network_label }}'}"
+    validate_certs: no
+    power_on: yes
+    disk_provisioning: thin
+    ovf: ./'{{ local_ova_path }}'
+  delegate_to: localhost
+  ignore_errors: yes
 
-  - name: Deploy OVA to ESXi 
-    vmware_deploy_ovf:
-      hostname: '{{ esxi_hostname }}'
-      username: '{{ esxi_username }}'
-      password: '{{ esxi_password }}'
-      datastore: '{{ esxi_datastore }}'
-      name: '{{ esxi_new_vm_name }}'
-      networks: "{u'LAB':u'{{ esxi_network_label }}'}"
-      validate_certs: no
-      power_on: yes
-      disk_provisioning: thin
-      ovf: ./'{{ local_ova_path }}'
-    delegate_to: localhost
-    ignore_errors: yes
-
-  - name: Delete OVA file
-    file:
-      path: ./'{{ local_ova_path }}'
-      state: absent
-    delegate_to: localhost
+- name: Delete OVA file
+  file:
+    path: ./'{{ local_ova_path }}'
+    state: absent
+  delegate_to: localhost
 
 
 
