@@ -3,8 +3,8 @@
   hosts: all
   gather_facts: false
 
-- roles: 
-    - vmware_deploy_ova
+  roles: 
+   - vmware_deploy_ova
 
 
 
