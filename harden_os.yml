@@ -2,7 +2,7 @@
 
 # This is meant to be run after the vmware_gather_facts playbook to discover the VM Guest IP address
 - name: OS Hardening
-  hosts: "{{ esxi_vm_guest_facts.instance.ipv4 }}"
+  hosts: "{{ vm_ip_address }}"
   gather_facts: false
 
 - roles:
