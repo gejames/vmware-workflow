@@ -1,37 +1,26 @@
 ---
-- name: VMWare Gather Facts
-  hosts: all
-  gather_facts: false
+- name: Gather VM facts from ESXI Guest VM
+  vmware_guest_facts:
+    hostname: '{{ esxi_hostname }}'
+    username: '{{ esxi_username }}'
+    password: '{{ esxi_password }}'
+    datacenter: ha-datacenter
+    validate_certs: no
+    name: '{{ esxi_new_vm_name }}'
+  delegate_to: localhost
+  register: esxi_vm_guest_facts
+    
+- set_fact:
+      vm_ip_address: "{{ esxi_vm_guest_facts.instance.ipv4 }}"
 
-  tasks:
+- name:  Gather OS Facts from VM
+  setup:
+  delegate_to: '{{ esxi_vm_guest_facts.instance.ipv4 }}'
 
-      - name: Gather VM facts from ESXI Guest VM
-        vmware_guest_facts:
-          hostname: '{{ esxi_hostname }}'
-          username: '{{ esxi_username }}'
-          password: '{{ esxi_password }}'
-          datacenter: ha-datacenter
-          validate_certs: no
-          name: '{{ esxi_new_vm_name }}'
-        delegate_to: localhost
-        register: esxi_vm_guest_facts
-         
-      - set_fact:
-           vm_ip_address: "{{ esxi_vm_guest_facts.instance.ipv4 }}"
-  
-      - name:  Gather OS Facts from VM
-        setup:
-        delegate_to: '{{ esxi_vm_guest_facts.instance.ipv4 }}'
 
-      - name: Run yum update
-        yum:
-            name: '*'
-            state: latest
-        delegate_to: '{{ esxi_vm_guest_facts.instance.ipv4 }}'
 
 
 
      
       
-
 
