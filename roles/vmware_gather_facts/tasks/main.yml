@@ -12,6 +12,7 @@
     
 - set_fact:
       vm_ip_address: "{{ esxi_vm_guest_facts.instance.ipv4 }}"
+  cacheable: yes 
 
 - name:  Gather OS Facts from VM
   setup:
